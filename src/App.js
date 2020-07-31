@@ -126,7 +126,7 @@ function App() {
   const [countryName, setCountryName] = useState("Worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 38.963745, lng: 35.24332 });
+  const [mapCenter, setMapCenter] = useState({ lat: 52, lng: 9 });
   const [mapZoom] = useState(5);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
@@ -167,6 +167,7 @@ function App() {
   }, []);
 
   const handleCountryChange = async (event) => {
+    console.log("event", event);
     const countryCode = event.target.value;
 
     const url =
@@ -178,10 +179,17 @@ function App() {
     await fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        console.log("data", data);
         setCountry(countryCode);
-        setCountryName(data.country);
+        setCountryName(
+          countryCode === "worldwide" ? "Worldwide" : data.country
+        );
         setCountryInfo(data);
-        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapCenter(
+          countryCode === "worldwide"
+            ? [52, 9]
+            : [data.countryInfo.lat, data.countryInfo.long]
+        );
       });
     setLoading(false);
   };
