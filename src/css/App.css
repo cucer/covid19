@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+}
+
+.MuiSvgIcon-root.MuiSelect-icon {
+  color: white;
+}
+
+@media (max-width: 990px) {
+  .app {
+    flex-direction: column;
+  }
+}
