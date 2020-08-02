@@ -6,8 +6,8 @@ import numeral from "numeral";
 const useStyles = makeStyles({
   map: {
     height: 500,
-    backgroundColor: "#1A1A1D",
-    padding: 5,
+    backgroundColor: "rgba(26, 26, 29, 0.85)",
+    padding: 2,
     borderRadius: 5,
   },
   infoContainer: {
@@ -28,31 +28,31 @@ const useStyles = makeStyles({
   infosCases: {
     fontSize: 16,
     marginTop: 5,
-    color: "#6F2232",
+    color: "#008ffb",
   },
   infosRecovered: {
     fontSize: 16,
     marginTop: 5,
-    color: "#5CDB95",
+    color: "#00e396",
   },
   infosDeaths: {
     fontSize: 16,
     marginTop: 5,
-    color: "#6F2232",
+    color: "#feb019",
   },
 });
 
 const casesTypeColors = {
   cases: {
-    hex: "#CC1034",
+    hex: "#008ffb",
     multiplier: 800,
   },
   recovered: {
-    hex: "#5CDB95",
+    hex: "#00e396",
     multiplier: 1200,
   },
   deaths: {
-    hex: "#C3073F",
+    hex: "#feb019",
     multiplier: 2000,
   },
 };

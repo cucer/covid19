@@ -91,10 +91,10 @@ function LineGraph({ casesType = "cases" }) {
   return (
     <div>
       <Typography
-        className={classes.graphTitle}
         gutterBottom
         variant="h5"
         component="h3"
+        className={classes.graphTitle}
       >
         Worldwide last 120 days {casesType}
       </Typography>
@@ -105,10 +105,11 @@ function LineGraph({ casesType = "cases" }) {
             datasets: [
               {
                 backgroundColor:
-                  casesType === "recovered"
-                    ? "rgba(16, 203, 125, 0.5)"
-                    : "rgba(204, 16, 52, 0.5)",
-                borderColor: casesType === "recovered" ? "#5CDB95" : "#6F2232",
+                  casesType === "cases"
+                    ? "rgba(0, 143, 251, 0.85)"
+                    : casesType === "recovered"
+                    ? "rgba(0, 227, 150, 0.85)"
+                    : "rgba(254, 176, 25, 0.85)",
                 data: data,
               },
             ],

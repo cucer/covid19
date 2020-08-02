@@ -27,16 +27,12 @@ import Sidebar from "./components/Sidebar";
 import { sortData, prettyPrintStat } from "./utils/util";
 import "./css/App.css";
 import "leaflet/dist/leaflet.css";
-// rgba(0, 143, 251, 0.85); cases #008ffb
-// fill: rgba(0, 227, 150, 0.85); recover #00e396
-// rgba(254, 176, 25, 0.85) dead #feb019
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
-    backgroundColor: "#1A1A1D",
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -47,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
-    backgroundColor: "#6F2232",
   },
   toolbar: {
     flexWrap: "wrap",
@@ -61,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     marginTop: 30,
-    color: "#ffffff",
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -107,7 +101,7 @@ const BootstrapInput = withStyles((theme) => ({
     fontFamily: ["Roboto", '"Helvetica Neue"', "Arial", "sans-serif"].join(","),
     "&:focus": {
       borderRadius: 5,
-      backgroundColor: "#6F2232",
+      backgroundColor: "primary",
     },
   },
 }))(InputBase);
@@ -256,6 +250,7 @@ function App() {
                 className={classes.header}
                 align="center"
                 variant="h3"
+                color="primary"
                 gutterBottom
               >
                 {countryName} Overview{" "}
@@ -332,6 +327,7 @@ function App() {
             >
               <Typography
                 className={classes.header}
+                color="primary"
                 align="center"
                 variant="h3"
                 gutterBottom
@@ -396,21 +392,7 @@ function App() {
             </Card>
           </Grid>
         </Grid>
-
-        {/* <Card className={classes.card}>
-          <CardContent>
-            <LineGraph casesType={casesType} />
-          </CardContent>
-        </Card> */}
       </Container>
-
-      {/* <Container className={classes.container} maxWidth="lg">
-        <Grid container spacing={4}>
-          <Grid item xs={4}></Grid>
-          <Grid item xs={4}></Grid>
-          <Grid item xs={4}></Grid>
-        </Grid>
-      </Container> */}
 
       <footer className={classes.footer}>
         <Container maxWidth="sm">

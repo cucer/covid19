@@ -1,35 +1,33 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography } from "@material-ui/core";
-// rgba(0, 143, 251, 0.85); cases #008ffb
-// fill: rgba(0, 227, 150, 0.85); recover #00e396
-// rgba(254, 176, 25, 0.85) dead #feb019
+
 const useStyles = makeStyles({
   infoBox: {
     flex: 1,
     cursor: "pointer",
   },
   infoBoxSelected: {
-    borderTop: "10px solid #34eb5e",
+    borderTop: "10px solid #00e396",
   },
   infoBoxRed: {
-    borderColor: "#6F2232",
+    borderColor: "#feb019",
   },
   infoBoxCases: {
-    color: "#6F2232",
+    color: "#008ffb",
     fontWeight: 600,
     fontSize: 28,
     marginTop: 5,
   },
   infoBoxCasesGreen: {
-    color: "#5CDB95",
+    color: "#00e396",
   },
   infoBoxTitleRed: {
-    color: "#6F2232",
+    color: "#008ffb",
     fontWeight: "bold",
   },
   infoBoxTitleGreen: {
-    color: "#5CDB95",
+    color: "#00e396",
     fontWeight: "bold",
   },
   infoBoxTotal: {
