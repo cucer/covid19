@@ -238,7 +238,7 @@ function App() {
       <Container component="main" maxWidth="xl">
         <Grid container>
           {/* LEFT */}
-          <Grid item md={8}>
+          <Grid item lg={8}>
             {/* INFOBOX */}
             <Container
               align="center"
@@ -258,7 +258,7 @@ function App() {
               </Typography>
 
               <Grid container spacing={4}>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <InfoBox
                     active={casesType === "cases"}
                     onClick={(e) => setCasesType("cases")}
@@ -267,7 +267,7 @@ function App() {
                     total={prettyPrintStat(countryInfo.cases)}
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <InfoBox
                     active={casesType === "recovered"}
                     onClick={(e) => setCasesType("recovered")}
@@ -276,7 +276,7 @@ function App() {
                     total={prettyPrintStat(countryInfo.recovered)}
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <InfoBox
                     active={casesType === "deaths"}
                     onClick={(e) => setCasesType("deaths")}
@@ -316,7 +316,7 @@ function App() {
           </Grid>
 
           {/* RIGHT */}
-          <Grid item md={4}>
+          <Grid item lg={4}>
             <Container
               component="main"
               align="center"
@@ -368,21 +368,21 @@ function App() {
       {/* GRAPH */}
       <Container component="main" className={classes.container} maxWidth="xl">
         <Grid container spacing={4}>
-          <Grid item xs={4}>
+          <Grid item xs={12} lg={4}>
             <Card className={classes.card}>
               <CardContent>
                 <LineGraph casesType={"cases"} />
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} lg={4}>
             <Card className={classes.card}>
               <CardContent>
                 <LineGraph casesType={"recovered"} />
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} lg={4}>
             <Card className={classes.card}>
               <CardContent>
                 <LineGraph casesType={"deaths"} />
