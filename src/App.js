@@ -260,7 +260,6 @@ function App() {
               <Grid container spacing={4}>
                 <Grid item xs={4}>
                   <InfoBox
-                    isRed
                     active={casesType === "cases"}
                     onClick={(e) => setCasesType("cases")}
                     title="Cases"
@@ -279,7 +278,6 @@ function App() {
                 </Grid>
                 <Grid item xs={4}>
                   <InfoBox
-                    isRed
                     active={casesType === "deaths"}
                     onClick={(e) => setCasesType("deaths")}
                     title="Deaths"

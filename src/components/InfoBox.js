@@ -8,10 +8,7 @@ const useStyles = makeStyles({
     cursor: "pointer",
   },
   infoBoxSelected: {
-    borderTop: "10px solid #00e396",
-  },
-  infoBoxRed: {
-    borderColor: "#feb019",
+    borderTop: "5px solid #3f51b5",
   },
   infoBoxCases: {
     color: "#008ffb",
@@ -19,15 +16,28 @@ const useStyles = makeStyles({
     fontSize: 28,
     marginTop: 5,
   },
-  infoBoxCasesGreen: {
+  infoBoxRecovered: {
     color: "#00e396",
+    fontWeight: 600,
+    fontSize: 28,
+    marginTop: 5,
   },
-  infoBoxTitleRed: {
+  infoBoxDeaths: {
+    color: "#feb019",
+    fontWeight: 600,
+    fontSize: 28,
+    marginTop: 5,
+  },
+  infoBoxTitleCases: {
     color: "#008ffb",
     fontWeight: "bold",
   },
-  infoBoxTitleGreen: {
+  infoBoxTitleRecovered: {
     color: "#00e396",
+    fontWeight: "bold",
+  },
+  infoBoxTitleDeaths: {
+    color: "#feb019",
     fontWeight: "bold",
   },
   infoBoxTotal: {
@@ -38,20 +48,23 @@ const useStyles = makeStyles({
   },
 });
 
-function InfoBox({ isRed, active, title, cases, total, ...props }) {
+function InfoBox({ active, title, cases, total, ...props }) {
   const classes = useStyles();
 
   return (
     <Card
       onClick={props.onClick}
-      className={`${classes.infoBox} ${active && classes.infoBoxSelected} ${
-        isRed && classes.infoBoxRed
+      className={`${classes.infoBox} ${active && classes.infoBoxSelected}
       }`}
     >
       <CardContent>
         <Typography
           className={
-            isRed ? classes.infoBoxTitleRed : classes.infoBoxTitleGreen
+            title === "Cases"
+              ? classes.infoBoxTitleCases
+              : title === "Recovered"
+              ? classes.infoBoxTitleRecovered
+              : classes.infoBoxTitleDeaths
           }
           align="center"
           variant="h5"
@@ -59,9 +72,13 @@ function InfoBox({ isRed, active, title, cases, total, ...props }) {
           {title}
         </Typography>
         <Typography
-          className={`${classes.infoBoxCases} ${
-            !isRed && classes.infoBoxCasesGreen
-          }`}
+          className={
+            title === "Cases"
+              ? classes.infoBoxCases
+              : title === "Recovered"
+              ? classes.infoBoxRecovered
+              : classes.infoBoxDeaths
+          }
           align="center"
           variant="h2"
         >
