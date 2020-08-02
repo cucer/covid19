@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography } from "@material-ui/core";
-
+// rgba(0, 143, 251, 0.85); cases #008ffb
+// fill: rgba(0, 227, 150, 0.85); recover #00e396
+// rgba(254, 176, 25, 0.85) dead #feb019
 const useStyles = makeStyles({
   infoBox: {
     flex: 1,

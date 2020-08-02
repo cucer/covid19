@@ -21,10 +21,15 @@ import Clock from "react-live-clock";
 import InfoBox from "./components/InfoBox";
 import Map from "./components/Map";
 import StatTable from "./components/StatTable";
+import AllInfoTable from "./components/AllInfoTable";
 import LineGraph from "./components/LineGraph";
+import Sidebar from "./components/Sidebar";
 import { sortData, prettyPrintStat } from "./utils/util";
 import "./css/App.css";
 import "leaflet/dist/leaflet.css";
+// rgba(0, 143, 251, 0.85); cases #008ffb
+// fill: rgba(0, 227, 150, 0.85); recover #00e396
+// rgba(254, 176, 25, 0.85) dead #feb019
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -167,7 +172,6 @@ function App() {
   }, []);
 
   const handleCountryChange = async (event) => {
-    console.log("event", event);
     const countryCode = event.target.value;
 
     const url =
@@ -179,7 +183,6 @@ function App() {
     await fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
         setCountry(countryCode);
         setCountryName(
           countryCode === "worldwide" ? "Worldwide" : data.country
@@ -238,80 +241,121 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      {/* INFOBOX */}
-      <Container
-        align="center"
-        component="main"
-        className={classes.container}
-        maxWidth="lg"
-      >
-        <Typography
-          className={classes.header}
-          align="center"
-          variant="h3"
-          gutterBottom
-        >
-          {countryName} Overview{" "}
-          <Clock format={"DD.MM.YYYY"} interval={1000} ticking={true} />
-        </Typography>
+      <Container component="main" maxWidth="xl">
+        <Grid container>
+          {/* LEFT */}
+          <Grid item md={8}>
+            {/* INFOBOX */}
+            <Container
+              align="center"
+              className={classes.container}
+              maxWidth="lg"
+              component="main"
+            >
+              <Typography
+                className={classes.header}
+                align="center"
+                variant="h3"
+                gutterBottom
+              >
+                {countryName} Overview{" "}
+                <Clock format={"DD.MM.YYYY"} interval={1000} ticking={true} />
+              </Typography>
 
-        <Grid container spacing={4}>
-          <Grid item xs={4}>
-            <InfoBox
-              isRed
-              active={casesType === "cases"}
-              onClick={(e) => setCasesType("cases")}
-              title="Cases"
-              cases={prettyPrintStat(countryInfo.todayCases)}
-              total={prettyPrintStat(countryInfo.cases)}
-            />
+              <Grid container spacing={4}>
+                <Grid item xs={4}>
+                  <InfoBox
+                    isRed
+                    active={casesType === "cases"}
+                    onClick={(e) => setCasesType("cases")}
+                    title="Cases"
+                    cases={prettyPrintStat(countryInfo.todayCases)}
+                    total={prettyPrintStat(countryInfo.cases)}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <InfoBox
+                    active={casesType === "recovered"}
+                    onClick={(e) => setCasesType("recovered")}
+                    title="Recovered"
+                    cases={prettyPrintStat(countryInfo.todayRecovered)}
+                    total={prettyPrintStat(countryInfo.recovered)}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <InfoBox
+                    isRed
+                    active={casesType === "deaths"}
+                    onClick={(e) => setCasesType("deaths")}
+                    title="Deaths"
+                    cases={prettyPrintStat(countryInfo.todayDeaths)}
+                    total={prettyPrintStat(countryInfo.deaths)}
+                  />
+                </Grid>
+              </Grid>
+            </Container>
+
+            {/* MAP */}
+            <Container
+              component="main"
+              className={classes.container}
+              maxWidth="lg"
+            >
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography
+                    className={classes.tableTitle}
+                    gutterBottom
+                    variant="h5"
+                    component="h3"
+                  >
+                    Click on a country for more info
+                  </Typography>
+                  <Map
+                    casesType={casesType}
+                    countries={mapCountries}
+                    center={mapCenter}
+                    zoom={mapZoom}
+                  />
+                </CardContent>
+              </Card>
+            </Container>
           </Grid>
-          <Grid item xs={4}>
-            <InfoBox
-              active={casesType === "recovered"}
-              onClick={(e) => setCasesType("recovered")}
-              title="Recovered"
-              cases={prettyPrintStat(countryInfo.todayRecovered)}
-              total={prettyPrintStat(countryInfo.recovered)}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <InfoBox
-              isRed
-              active={casesType === "deaths"}
-              onClick={(e) => setCasesType("deaths")}
-              title="Deaths"
-              cases={prettyPrintStat(countryInfo.todayDeaths)}
-              total={prettyPrintStat(countryInfo.deaths)}
-            />
+
+          {/* RIGHT */}
+          <Grid item md={4}>
+            <Container
+              component="main"
+              align="center"
+              className={classes.container}
+              maxWidth="lg"
+            >
+              <Typography
+                className={classes.header}
+                align="center"
+                variant="h3"
+                gutterBottom
+              >
+                Tables & Charts
+              </Typography>
+              <Sidebar
+                title={countryName + " Daily"}
+                cases={countryInfo.todayCases}
+                recovered={countryInfo.todayRecovered}
+                deaths={countryInfo.todayDeaths}
+              />
+              <Card className={classes.card}>
+                <CardContent>
+                  <AllInfoTable countryInfo={countryInfo} />
+                </CardContent>
+              </Card>
+            </Container>
           </Grid>
         </Grid>
       </Container>
 
-      {/* MAP */}
-      <Container component="main" className={classes.container} maxWidth="lg">
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography
-              className={classes.tableTitle}
-              gutterBottom
-              variant="h5"
-              component="h3"
-            >
-              Click on a country for more info
-            </Typography>
-            <Map
-              casesType={casesType}
-              countries={mapCountries}
-              center={mapCenter}
-              zoom={mapZoom}
-            />
-          </CardContent>
-        </Card>
-      </Container>
-
       {/* TABLE */}
-      <Container component="main" className={classes.container} maxWidth="lg">
+      <Container component="main" className={classes.container} maxWidth="xl">
         <Card className={classes.card}>
           <CardContent>
             <Typography
@@ -328,21 +372,45 @@ function App() {
       </Container>
 
       {/* GRAPH */}
-      <Container component="main" className={classes.container} maxWidth="lg">
-        <Card className={classes.card}>
+      <Container component="main" className={classes.container} maxWidth="xl">
+        <Grid container spacing={4}>
+          <Grid item xs={4}>
+            <Card className={classes.card}>
+              <CardContent>
+                <LineGraph casesType={"cases"} />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card className={classes.card}>
+              <CardContent>
+                <LineGraph casesType={"recovered"} />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card className={classes.card}>
+              <CardContent>
+                <LineGraph casesType={"deaths"} />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
+        {/* <Card className={classes.card}>
           <CardContent>
             <LineGraph casesType={casesType} />
           </CardContent>
-        </Card>
+        </Card> */}
       </Container>
 
-      <Container component="main" className={classes.container} maxWidth="lg">
+      {/* <Container className={classes.container} maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={4}></Grid>
           <Grid item xs={4}></Grid>
           <Grid item xs={4}></Grid>
         </Grid>
-      </Container>
+      </Container> */}
 
       <footer className={classes.footer}>
         <Container maxWidth="sm">
