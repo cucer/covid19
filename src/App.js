@@ -15,6 +15,7 @@ import {
   Card,
   CardContent,
 } from "@material-ui/core";
+import Modal from "@material-ui/core/Modal";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
 import Clock from "react-live-clock";
@@ -83,7 +84,27 @@ const useStyles = makeStyles((theme) => ({
         ? theme.palette.grey[200]
         : theme.palette.grey[800],
   },
+  modal: {
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #05386B",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    color: "#05386B",
+  },
 }));
+
+const getModalStyle = () => {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+};
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -129,6 +150,8 @@ function App() {
   const [mapZoom] = useState(5);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
+  const [modalStyle] = useState(getModalStyle);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const getAllData = async () => {
@@ -187,6 +210,14 @@ function App() {
             ? [52, 9]
             : [data.countryInfo.lat, data.countryInfo.long]
         );
+
+        if (
+          data.todayCases === 0 &&
+          data.todayRecovered === 0 &&
+          data.todayDeaths === 0
+        ) {
+          setOpenModal(true);
+        }
       });
     setLoading(false);
   };
@@ -195,10 +226,28 @@ function App() {
     setLoading(false);
   };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
-
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div style={modalStyle} className={classes.modal}>
+          <h2 id="simple-modal-title" color="primary">
+            Please try again later!
+          </h2>
+          <p id="simple-modal-description">
+            Daily cases have not publicly reported yet by officials.
+          </p>
+        </div>
+      </Modal>
       <Backdrop
         className={classes.backdrop}
         open={loading}
