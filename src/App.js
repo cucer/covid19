@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   CssBaseline,
@@ -14,30 +14,30 @@ import {
   Select,
   Card,
   CardContent,
-} from "@material-ui/core";
-import Modal from "@material-ui/core/Modal";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import InputBase from "@material-ui/core/InputBase";
-import Clock from "react-live-clock";
-import InfoBox from "./components/InfoBox";
-import Map from "./components/Map";
-import StatTable from "./components/StatTable";
-import AllInfoTable from "./components/AllInfoTable";
-import LineGraph from "./components/LineGraph";
-import Sidebar from "./components/Sidebar";
-import { sortData, prettyPrintStat } from "./utils/util";
-import "./css/App.css";
-import "leaflet/dist/leaflet.css";
+} from '@material-ui/core'
+import Modal from '@material-ui/core/Modal'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import InputBase from '@material-ui/core/InputBase'
+import Clock from 'react-live-clock'
+import InfoBox from './components/InfoBox'
+import Map from './components/Map'
+import StatTable from './components/StatTable'
+import AllInfoTable from './components/AllInfoTable'
+import LineGraph from './components/LineGraph'
+import Sidebar from './components/Sidebar'
+import { sortData, prettyPrintStat } from './utils/util'
+import './css/App.css'
+import 'leaflet/dist/leaflet.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: "#fff",
+    color: '#fff',
   },
   container: {
     marginBottom: theme.spacing(2),
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
   toolbar: {
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
   },
   toolbarTitle: {
     flexGrow: 1,
@@ -63,172 +63,171 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   cardContent: {
     flexGrow: 1,
   },
   tableTitle: {
-    color: "#C3073F",
+    color: '#C3073F',
   },
   graphTitle: {
-    color: "#C3073F",
+    color: '#C3073F',
   },
   footer: {
     padding: theme.spacing(1),
-    marginTop: "auto",
+    marginTop: 'auto',
     backgroundColor:
-      theme.palette.type === "light"
+      theme.palette.type === 'light'
         ? theme.palette.grey[200]
         : theme.palette.grey[800],
   },
   modal: {
-    position: "absolute",
+    position: 'absolute',
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #05386B",
+    border: '2px solid #05386B',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    color: "#05386B",
+    color: '#05386B',
   },
-}));
+}))
 
 const getModalStyle = () => {
-  const top = 50;
-  const left = 50;
+  const top = 50
+  const left = 50
 
   return {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-  };
-};
+  }
+}
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
-    "label + &": {
+    'label + &': {
       marginTop: theme.spacing(3),
     },
   },
   input: {
     borderRadius: 5,
-    position: "relative",
-    color: "#ffffff",
+    position: 'relative',
+    color: '#ffffff',
     fontSize: 16,
-    padding: "10px 26px 10px 12px",
-    transition: theme.transitions.create(["border-color", "box-shadow"]),
-    fontFamily: ["Roboto", '"Helvetica Neue"', "Arial", "sans-serif"].join(","),
-    "&:focus": {
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    fontFamily: ['Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
+    '&:focus': {
       borderRadius: 5,
-      backgroundColor: "primary",
+      backgroundColor: 'primary',
     },
   },
-}))(InputBase);
+}))(InputBase)
 
 const Copyright = () => {
   return (
-    <Typography variant="body2" color="textSecondary">
-      <Link color="inherit" href="https://cagatayucer.com/">
-        {"Copyright © Cagatay Ucer"}
-      </Link>{" "}
-      <Clock format={"DD.MM.YYYY"} interval={1000} ticking={true} />
+    <Typography variant='body2' color='textSecondary'>
+      <Link color='inherit' href='https://cagatayucer.com/'>
+        {'Copyright © Cagatay Ucer'}
+      </Link>{' '}
+      <Clock format={'DD.MM.YYYY'} interval={1000} ticking={true} />
     </Typography>
-  );
-};
+  )
+}
 
 function App() {
-  const classes = useStyles();
-  const [loading, setLoading] = useState(false);
-  const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("worldwide");
-  const [countryName, setCountryName] = useState("Worldwide");
-  const [countryInfo, setCountryInfo] = useState({});
-  const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 52, lng: 9 });
-  const [mapZoom] = useState(5);
-  const [mapCountries, setMapCountries] = useState([]);
-  const [casesType, setCasesType] = useState("cases");
-  const [modalStyle] = useState(getModalStyle);
-  const [openModal, setOpenModal] = useState(false);
+  const classes = useStyles()
+  const [loading, setLoading] = useState(false)
+  const [countries, setCountries] = useState([])
+  const [country, setCountry] = useState('worldwide')
+  const [countryName, setCountryName] = useState('Worldwide')
+  const [countryInfo, setCountryInfo] = useState({})
+  const [tableData, setTableData] = useState([])
+  const [mapCenter, setMapCenter] = useState({ lat: 52, lng: 9 })
+  const [mapZoom] = useState(5)
+  const [mapCountries, setMapCountries] = useState([])
+  const [casesType, setCasesType] = useState('cases')
+  const [modalStyle] = useState(getModalStyle)
+  const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
     const getAllData = async () => {
-      setLoading(true);
-      await fetch("https://disease.sh/v3/covid-19/all")
+      setLoading(true)
+      await fetch('https://disease.sh/v3/covid-19/all')
         .then((response) => response.json())
         .then((data) => {
-          setCountryInfo(data);
-        });
-      setLoading(false);
-    };
-    getAllData();
-  }, []);
+          setCountryInfo(data)
+        })
+      setLoading(false)
+    }
+    getAllData()
+  }, [])
 
   useEffect(() => {
     const getCountriesData = async () => {
-      setLoading(true);
-      await fetch("https://disease.sh/v3/covid-19/countries")
+      setLoading(true)
+      await fetch('https://disease.sh/v3/covid-19/countries')
         .then((response) => response.json())
         .then((data) => {
+          console.log('data', data)
           const countriesData = data.map((c) => ({
             name: c.country,
             value: c.countryInfo.iso2,
             tag: c.countryInfo.iso3,
-          }));
+          }))
 
-          const sortedData = sortData(data);
-          setLoading(false);
-          setTableData(sortedData);
-          setMapCountries(data);
-          setCountries(countriesData);
-        });
-    };
-    getCountriesData();
-  }, []);
+          const sortedData = sortData(data)
+          setLoading(false)
+          setTableData(sortedData)
+          setMapCountries(data)
+          setCountries(countriesData)
+        })
+    }
+    getCountriesData()
+  }, [])
 
   const handleCountryChange = async (event) => {
-    const countryCode = event.target.value;
+    const countryCode = event.target.value
 
     const url =
-      countryCode === "worldwide"
-        ? "https://disease.sh/v3/covid-19/all"
-        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+      countryCode === 'worldwide'
+        ? 'https://disease.sh/v3/covid-19/all'
+        : `https://disease.sh/v3/covid-19/countries/${countryCode}`
 
-    setLoading(true);
+    setLoading(true)
     await fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setCountry(countryCode);
-        setCountryName(
-          countryCode === "worldwide" ? "Worldwide" : data.country
-        );
-        setCountryInfo(data);
+        setCountry(countryCode)
+        setCountryName(countryCode === 'worldwide' ? 'Worldwide' : data.country)
+        setCountryInfo(data)
         setMapCenter(
-          countryCode === "worldwide"
+          countryCode === 'worldwide'
             ? [52, 9]
             : [data.countryInfo.lat, data.countryInfo.long]
-        );
+        )
 
         if (
           data.todayCases === 0 &&
           data.todayRecovered === 0 &&
           data.todayDeaths === 0
         ) {
-          setOpenModal(true);
+          setOpenModal(true)
         }
-      });
-    setLoading(false);
-  };
+      })
+    setLoading(false)
+  }
 
   const handleCloseLoading = () => {
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+    setOpenModal(false)
+  }
 
   return (
     <div className={classes.root}>
@@ -236,14 +235,14 @@ function App() {
       <Modal
         open={openModal}
         onClose={handleCloseModal}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
       >
         <div style={modalStyle} className={classes.modal}>
-          <h2 id="simple-modal-title" color="primary">
+          <h2 id='simple-modal-title' color='primary'>
             Please try again later!
           </h2>
-          <p id="simple-modal-description">
+          <p id='simple-modal-description'>
             Daily cases have not publicly reported yet by officials.
           </p>
         </div>
@@ -253,14 +252,14 @@ function App() {
         open={loading}
         onClick={handleCloseLoading}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Backdrop>
 
-      <AppBar position="static" elevation={0} className={classes.appBar}>
+      <AppBar position='static' elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography
-            variant="h6"
-            color="inherit"
+            variant='h6'
+            color='inherit'
             noWrap
             className={classes.toolbarTitle}
           >
@@ -273,7 +272,7 @@ function App() {
               autoWidth
               input={<BootstrapInput />}
             >
-              <MenuItem value="worldwide">Worldwide</MenuItem>
+              <MenuItem value='worldwide'>Worldwide</MenuItem>
               {countries.map((country, i) => (
                 <MenuItem key={i} value={country.value}>
                   {country.name}
@@ -284,52 +283,52 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      <Container component="main" maxWidth="xl">
+      <Container component='main' maxWidth='xl'>
         <Grid container>
           {/* LEFT */}
           <Grid item lg={8}>
             {/* INFOBOX */}
             <Container
-              align="center"
+              align='center'
               className={classes.container}
-              maxWidth="lg"
-              component="main"
+              maxWidth='lg'
+              component='main'
             >
               <Typography
                 className={classes.header}
-                align="center"
-                variant="h3"
-                color="primary"
+                align='center'
+                variant='h3'
+                color='primary'
                 gutterBottom
               >
-                {countryName} Overview{" "}
-                <Clock format={"DD.MM.YYYY"} interval={1000} ticking={true} />
+                {countryName} Overview{' '}
+                <Clock format={'DD.MM.YYYY'} interval={1000} ticking={true} />
               </Typography>
 
               <Grid container spacing={4}>
                 <Grid item xs={12} md={4}>
                   <InfoBox
-                    active={casesType === "cases"}
-                    onClick={(e) => setCasesType("cases")}
-                    title="Cases"
+                    active={casesType === 'cases'}
+                    onClick={(e) => setCasesType('cases')}
+                    title='Cases'
                     cases={prettyPrintStat(countryInfo.todayCases)}
                     total={prettyPrintStat(countryInfo.cases)}
                   />
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <InfoBox
-                    active={casesType === "recovered"}
-                    onClick={(e) => setCasesType("recovered")}
-                    title="Recovered"
+                    active={casesType === 'recovered'}
+                    onClick={(e) => setCasesType('recovered')}
+                    title='Recovered'
                     cases={prettyPrintStat(countryInfo.todayRecovered)}
                     total={prettyPrintStat(countryInfo.recovered)}
                   />
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <InfoBox
-                    active={casesType === "deaths"}
-                    onClick={(e) => setCasesType("deaths")}
-                    title="Deaths"
+                    active={casesType === 'deaths'}
+                    onClick={(e) => setCasesType('deaths')}
+                    title='Deaths'
                     cases={prettyPrintStat(countryInfo.todayDeaths)}
                     total={prettyPrintStat(countryInfo.deaths)}
                   />
@@ -339,17 +338,17 @@ function App() {
 
             {/* MAP */}
             <Container
-              component="main"
+              component='main'
               className={classes.container}
-              maxWidth="lg"
+              maxWidth='lg'
             >
               <Card className={classes.card}>
                 <CardContent>
                   <Typography
                     className={classes.tableTitle}
                     gutterBottom
-                    variant="h5"
-                    component="h3"
+                    variant='h5'
+                    component='h3'
                   >
                     Click on a country for more info
                   </Typography>
@@ -367,22 +366,22 @@ function App() {
           {/* RIGHT */}
           <Grid item lg={4}>
             <Container
-              component="main"
-              align="center"
+              component='main'
+              align='center'
               className={classes.container}
-              maxWidth="lg"
+              maxWidth='lg'
             >
               <Typography
                 className={classes.header}
-                color="primary"
-                align="center"
-                variant="h3"
+                color='primary'
+                align='center'
+                variant='h3'
                 gutterBottom
               >
                 Tables & Charts
               </Typography>
               <Sidebar
-                title={countryName + " Daily"}
+                title={countryName + ' Daily'}
                 cases={countryInfo.todayCases}
                 recovered={countryInfo.todayRecovered}
                 deaths={countryInfo.todayDeaths}
@@ -398,14 +397,14 @@ function App() {
       </Container>
 
       {/* TABLE */}
-      <Container component="main" className={classes.container} maxWidth="xl">
+      <Container component='main' className={classes.container} maxWidth='xl'>
         <Card className={classes.card}>
           <CardContent>
             <Typography
               className={classes.tableTitle}
               gutterBottom
-              variant="h5"
-              component="h3"
+              variant='h5'
+              component='h3'
             >
               Live statistics
             </Typography>
@@ -415,26 +414,26 @@ function App() {
       </Container>
 
       {/* GRAPH */}
-      <Container component="main" className={classes.container} maxWidth="xl">
+      <Container component='main' className={classes.container} maxWidth='xl'>
         <Grid container spacing={4}>
           <Grid item xs={12} lg={4}>
             <Card className={classes.card}>
               <CardContent>
-                <LineGraph casesType={"cases"} />
+                <LineGraph casesType={'cases'} />
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} lg={4}>
             <Card className={classes.card}>
               <CardContent>
-                <LineGraph casesType={"recovered"} />
+                <LineGraph casesType={'recovered'} />
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} lg={4}>
             <Card className={classes.card}>
               <CardContent>
-                <LineGraph casesType={"deaths"} />
+                <LineGraph casesType={'deaths'} />
               </CardContent>
             </Card>
           </Grid>
@@ -442,12 +441,12 @@ function App() {
       </Container>
 
       <footer className={classes.footer}>
-        <Container maxWidth="sm">
+        <Container maxWidth='sm'>
           <Copyright />
         </Container>
       </footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
