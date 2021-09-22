@@ -147,7 +147,7 @@ function App() {
   const [countryInfo, setCountryInfo] = useState({})
   const [tableData, setTableData] = useState([])
   const [mapCenter, setMapCenter] = useState({ lat: 52, lng: 9 })
-  const [mapZoom] = useState(5)
+  const [mapZoom] = useState(2)
   const [mapCountries, setMapCountries] = useState([])
   const [casesType, setCasesType] = useState('cases')
   const [modalStyle] = useState(getModalStyle)
@@ -172,7 +172,6 @@ function App() {
       await fetch('https://disease.sh/v3/covid-19/countries')
         .then((response) => response.json())
         .then((data) => {
-          console.log('data', data)
           const countriesData = data.map((c) => ({
             name: c.country,
             value: c.countryInfo.iso2,
