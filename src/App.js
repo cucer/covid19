@@ -262,7 +262,7 @@ function App() {
             noWrap
             className={classes.toolbarTitle}
           >
-            Covid-19 Tracker
+            Covid19 Tracker
           </Typography>
           <FormControl className={classes.formControl}>
             <Select
