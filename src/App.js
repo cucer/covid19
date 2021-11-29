@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ReactGa from 'react-ga'
 import {
   Container,
   CssBaseline,
@@ -152,6 +153,11 @@ function App() {
   const [casesType, setCasesType] = useState('cases')
   const [modalStyle] = useState(getModalStyle)
   const [openModal, setOpenModal] = useState(false)
+
+  useEffect(() => {
+    ReactGa.initialize('UA-62711254-5')
+    ReactGa.pageview('/covid')
+  }, [])
 
   useEffect(() => {
     const getAllData = async () => {
