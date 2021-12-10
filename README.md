@@ -1,31 +1,50 @@
-## Installed Libraries
+<!-- ABOUT THE PROJECT -->
 
-@material-ui<br />
-react-live-clock<br />
-react-chartjs-2<br />
-numeral<br />
-react-leaflet
+## About The Project
 
-## Available Scripts
+<p align="left"><a href="https://cucer.github.io/covid19/" target="_blank">DEMO URL</a></p>
 
-In the project directory, you can run:
+### Built With
 
-### `npm start`
+- [React](https://reactjs.org)
+- [Chart](https://www.chartjs.org)
+- [Leaflet](https://leafletjs.com)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<!-- GETTING STARTED -->
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To get a local copy up and running follow these simple example steps.
 
-Launches the test runner in the interactive watch mode.<br />
+### Installation
 
-### `npm run build`
+1. Get a free API Key at [https://disease.sh/](https://disease.sh/)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/cucer/covid19.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- CONTRIBUTING -->
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Contributing
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request.
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch
+3. Commit your Changes
+4. Push to the Branch
+5. Open a Pull Request
+
+<!-- CONTACT -->
+
+## Contact
+
+Linkedin - [@linkedin](https://www.linkedin.com/in/cagatayucer/)
+
+Project Link: [https://github.com/cucer/covid19](https://github.com/cucer/covid19)
